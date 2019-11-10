@@ -19,7 +19,7 @@ public class HomeTask6 {
         }
     }
 
-//записать в выходной поток
+
     private static void writeResponse(Socket client) throws IOException {
 
         String path = new File(".").getAbsolutePath();
@@ -27,12 +27,11 @@ public class HomeTask6 {
         assert list != null;
         String response = Arrays.asList(list).toString();
 
-
         OutputStream os = client.getOutputStream();
         os.write(response(response).getBytes());
         os.flush();
     }
-//сформировать выходной поток
+
     private static String response(String resp) {
         Date date = new Date();
         String start = "HTTP/1.1 200 OK\r\n";
@@ -42,12 +41,11 @@ public class HomeTask6 {
         header += "\r\n";
         return start + header + resp;
     }
-//прочитать входной поток
+
     private static void readInputHeaders(Socket client) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        System.out.println(br.ready());
-        String s = br.readLine();
-        if (s != null && s.contains("GET")) {
+        String str = br.readLine();
+        if (str != null && str.contains("GET")) {
             writeResponse(client);
         }
         else {
